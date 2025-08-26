@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tic Tac Toe</title>
+  <title>Tic Tac Toe with AI & 2 Player</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Tic Tac Toe</h1>
+  <h1>Tic Tac Toe </h1>
+
   <div id="game">
     <div class="cell" data-index="0"></div>
     <div class="cell" data-index="1"></div>
@@ -18,8 +19,12 @@
     <div class="cell" data-index="7"></div>
     <div class="cell" data-index="8"></div>
   </div>
+
   <p id="status">Player X's Turn</p>
-  <button onclick="restartGame()">Restart</button>
+
+  <!-- Buttons -->
+  <button onclick="restartGame()">🔄 Reset Game</button>
+  <button onclick="toggleMode()">🤖 Toggle AI / 2 Player</button>
 
   <script src="script.js"></script>
 </body>
