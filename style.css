@@ -1,13 +1,12 @@
-/* Add background color */
 body {
-  background-color: #222;      /* Dark background */
-  color: #fff;                 /* White text */
+  background-color: #222;
+  color: #fff;
   font-family: Arial, sans-serif;
   text-align: center;
 }
 
 h1 {
-  color: #ffcc00;              /* Yellow heading */
+  color: #ffcc00;
 }
 
 #game {
@@ -20,7 +19,7 @@ h1 {
 }
 
 .cell {
-  background-color: #444;       /* Board cell background */
+  background-color: #444;
   color: white;
   font-size: 2em;
   display: flex;
@@ -32,11 +31,11 @@ h1 {
 }
 
 .cell:hover {
-  background-color: #666;       /* Hover effect */
+  background-color: #666;
 }
 
 button {
-  margin-top: 15px;
+  margin: 10px 5px;
   padding: 10px 20px;
   background-color: #ffcc00;
   border: none;
