@@ -1,44 +1,31 @@
-let board = ["", "", "", "", "", "", "", "", ""];
-let currentPlayer = "X";
-let gameActive = true;
-const statusDisplay = document.getElementById("status");
-const cells = document.querySelectorAll(".cell");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tic Tac Toe with AI & 2 Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Tic Tac Toe </h1>
 
-cells.forEach(cell => {
-  cell.addEventListener("click", () => {
-    const index = cell.getAttribute("data-index");
-    if (board[index] === "" && gameActive) {
-      board[index] = currentPlayer;
-      cell.textContent = currentPlayer;
-      if (checkWinner()) {
-        statusDisplay.textContent = `Player ${currentPlayer} Wins!`;
-        gameActive = false;
-      } else if (board.every(cell => cell !== "")) {
-        statusDisplay.textContent = "It's a Draw!";
-        gameActive = false;
-      } else {
-        currentPlayer = currentPlayer === "X" ? "O" : "X";
-        statusDisplay.textContent = `Player ${currentPlayer}'s Turn`;
-      }
-    }
-  });
-});
+  <div id="game">
+    <div class="cell" data-index="0"></div>
+    <div class="cell" data-index="1"></div>
+    <div class="cell" data-index="2"></div>
+    <div class="cell" data-index="3"></div>
+    <div class="cell" data-index="4"></div>
+    <div class="cell" data-index="5"></div>
+    <div class="cell" data-index="6"></div>
+    <div class="cell" data-index="7"></div>
+    <div class="cell" data-index="8"></div>
+  </div>
 
-function checkWinner() {
-  const winPatterns = [
-    [0,1,2], [3,4,5], [6,7,8],
-    [0,3,6], [1,4,7], [2,5,8],
-    [0,4,8], [2,4,6]
-  ];
-  return winPatterns.some(pattern => {
-    return pattern.every(index => board[index] === currentPlayer);
-  });
-}
+  <p id="status">Player X's Turn</p>
 
-function restartGame() {
-  board = ["", "", "", "", "", "", "", "", ""];
-  currentPlayer = "X";
-  gameActive = true;
-  statusDisplay.textContent = "Player X's Turn";
-  cells.forEach(cell => cell.textContent = "");
-}
+  <!-- Buttons -->
+  <button onclick="restartGame()">🔄 Reset Game</button>
+  <button onclick="toggleMode()">🤖 Toggle AI / 2 Player</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
