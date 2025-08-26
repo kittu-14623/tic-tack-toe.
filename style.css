@@ -1,0 +1,50 @@
+/* Add background color */
+body {
+  background-color: #222;      /* Dark background */
+  color: #fff;                 /* White text */
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #ffcc00;              /* Yellow heading */
+}
+
+#game {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.cell {
+  background-color: #444;       /* Board cell background */
+  color: white;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.cell:hover {
+  background-color: #666;       /* Hover effect */
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #ffaa00;
+}
