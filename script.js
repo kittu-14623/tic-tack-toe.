@@ -1,5 +1,5 @@
 let board = ["", "", "", "", "", "", "", "", ""];
-let currentPlayer = "X";
+let currentPlayer = "❌";
 let gameActive = true;
 let aiMode = true; // start with AI 
 const statusDisplay = document.getElementById("status");
@@ -10,7 +10,7 @@ cells.forEach(cell => {
     const index = cell.getAttribute("data-index");
 
     if (board[index] === "" && gameActive) {
-      if (aiMode && currentPlayer === "X") {
+      if (aiMode && currentPlayer === "❌") {
         // Human 
         playerMove(index);
         if (gameActive) setTimeout(aiMove, 500);
@@ -44,7 +44,7 @@ function aiMove() {
   let move;
   for (let i = 0; i < board.length; i++) {
     if (board[i] === "") {
-      board[i] = "O";
+      board[i] = "⭕";
       let score = minimax(board, 0, false);
       board[i] = "";
       if (score > bestScore) {
@@ -53,21 +53,21 @@ function aiMove() {
       }
     }
   }
-  currentPlayer = "O";
+  currentPlayer = "⭕";
   playerMove(move);
-  currentPlayer = "X"; // return control to human
+  currentPlayer = "❌"; // return control to human
 }
 
 function minimax(newBoard, depth, isMaximizing) {
-  if (checkWinner(newBoard, "O")) return 10 - depth;
-  if (checkWinner(newBoard, "X")) return depth - 10;
+  if (checkWinner(newBoard, "⭕")) return 10 - depth;
+  if (checkWinner(newBoard, "❌")) return depth - 10;
   if (newBoard.every(cell => cell !== "")) return 0;
 
   if (isMaximizing) {
     let bestScore = -Infinity;
     for (let i = 0; i < newBoard.length; i++) {
       if (newBoard[i] === "") {
-        newBoard[i] = "O";
+        newBoard[i] = "⭕";
         let score = minimax(newBoard, depth + 1, false);
         newBoard[i] = "";
         bestScore = Math.max(score, bestScore);
@@ -78,7 +78,7 @@ function minimax(newBoard, depth, isMaximizing) {
     let bestScore = Infinity;
     for (let i = 0; i < newBoard.length; i++) {
       if (newBoard[i] === "") {
-        newBoard[i] = "X";
+        newBoard[i] = "❌";
         let score = minimax(newBoard, depth + 1, true);
         newBoard[i] = "";
         bestScore = Math.min(score, bestScore);
@@ -101,7 +101,7 @@ function checkWinner(b, player) {
 
 function restartGame() {
   board = ["", "", "", "", "", "", "", "", ""];
-  currentPlayer = "X";
+  currentPlayer = "❌";
   gameActive = true;
   statusDisplay.textContent = aiMode ? "AI Mode: Player X vs Computer (O)" : "2 Player Mode: Player X starts";
   cells.forEach(cell => cell.textContent = "");
