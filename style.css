@@ -1,5 +1,5 @@
 body {
-  background-color: #222;
+  background-color: #1b1a1a;
   color: #fff;
   font-family: Arial, sans-serif;
   text-align: center;
@@ -19,7 +19,7 @@ h1 {
 }
 
 .cell {
-  background-color: #444;
+  background-color: #e9e4e4;
   color: white;
   font-size: 2em;
   display: flex;
@@ -31,7 +31,7 @@ h1 {
 }
 
 .cell:hover {
-  background-color: #666;
+  background-color: #ffffff;
 }
 
 button {
