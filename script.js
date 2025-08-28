@@ -1,7 +1,7 @@
 let board = ["", "", "", "", "", "", "", "", ""];
-let currentPlayer = "❌";
+let currentPlayer = "❌";   // Always starts with ❌
 let gameActive = true;
-let aiMode = true; // start with AI 
+let aiMode = true; // start with AI mode
 const statusDisplay = document.getElementById("status");
 const cells = document.querySelectorAll(".cell");
 
@@ -11,11 +11,11 @@ cells.forEach(cell => {
 
     if (board[index] === "" && gameActive) {
       if (aiMode && currentPlayer === "❌") {
-        // Human 
+        // Human move
         playerMove(index);
         if (gameActive) setTimeout(aiMove, 500);
       } else if (!aiMode) {
-        // 2-player mode 
+        // 2-player mode
         playerMove(index);
       }
     }
@@ -33,12 +33,15 @@ function playerMove(index) {
     statusDisplay.textContent = "🤝 It's a Draw!";
     gameActive = false;
   } else {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    statusDisplay.textContent = `Player ${currentPlayer}'s Turn`;
+    // Switch turn properly
+    currentPlayer = currentPlayer === "❌" ? "⭕" : "❌";
+    statusDisplay.textContent = aiMode 
+      ? (currentPlayer === "❌" ? "Your Turn (❌)" : "Computer's Turn (⭕)")
+      : `Player ${currentPlayer}'s Turn`;
   }
 }
 
-// ---- AI  ----
+// ---- AI Hard Mode ----
 function aiMove() {
   let bestScore = -Infinity;
   let move;
@@ -55,7 +58,6 @@ function aiMove() {
   }
   currentPlayer = "⭕";
   playerMove(move);
-  currentPlayer = "❌"; // return control to human
 }
 
 function minimax(newBoard, depth, isMaximizing) {
@@ -103,12 +105,13 @@ function restartGame() {
   board = ["", "", "", "", "", "", "", "", ""];
   currentPlayer = "❌";
   gameActive = true;
-  statusDisplay.textContent = aiMode ? "AI Mode: Player X vs Computer (O)" : "2 Player Mode: Player X starts";
+  statusDisplay.textContent = aiMode 
+    ? "AI Mode: Player ❌ vs Computer ⭕ (Hard)"
+    : "2 Player Mode: Player ❌ starts";
   cells.forEach(cell => cell.textContent = "");
 }
 
 function toggleMode() {
   aiMode = !aiMode;
   restartGame();
-  statusDisplay.textContent = aiMode ? "AI Mode: Hard (Unbeatable)" : "2 Player Mode: Player X starts";
 }
