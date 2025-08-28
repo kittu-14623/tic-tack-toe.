@@ -1,7 +1,9 @@
 let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "❌";   // Always starts with ❌
 let gameActive = true;
-let aiMode = true; // start with AI mode
+let aiMode = true; // AI or 2-player
+let aiDifficulty = "medium"; // can be: "easy", "medium", "hard"
+
 const statusDisplay = document.getElementById("status");
 const cells = document.querySelectorAll(".cell");
 
@@ -41,8 +43,35 @@ function playerMove(index) {
   }
 }
 
-// ---- AI Hard Mode ----
+// ---- AI with Difficulty ----
 function aiMove() {
+  let move;
+
+  if (aiDifficulty === "easy") {
+    // Random move
+    let available = board.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+    move = available[Math.floor(Math.random() * available.length)];
+
+  } else if (aiDifficulty === "medium") {
+    // 50% chance random, 50% chance best move
+    if (Math.random() < 0.5) {
+      let available = board.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+      move = available[Math.floor(Math.random() * available.length)];
+    } else {
+      move = bestMove();
+    }
+
+  } else {
+    // Hard mode: always best move
+    move = bestMove();
+  }
+
+  currentPlayer = "⭕";
+  playerMove(move);
+}
+
+// ---- Best Move using Minimax (Hard AI) ----
+function bestMove() {
   let bestScore = -Infinity;
   let move;
   for (let i = 0; i < board.length; i++) {
@@ -56,8 +85,7 @@ function aiMove() {
       }
     }
   }
-  currentPlayer = "⭕";
-  playerMove(move);
+  return move;
 }
 
 function minimax(newBoard, depth, isMaximizing) {
@@ -106,12 +134,18 @@ function restartGame() {
   currentPlayer = "❌";
   gameActive = true;
   statusDisplay.textContent = aiMode 
-    ? "AI Mode: Player ❌ vs Computer ⭕ (Hard)"
+    ? `AI Mode (${aiDifficulty.toUpperCase()}): Player ❌ vs Computer ⭕`
     : "2 Player Mode: Player ❌ starts";
   cells.forEach(cell => cell.textContent = "");
 }
 
 function toggleMode() {
   aiMode = !aiMode;
+  restartGame();
+}
+
+// ---- Change AI Difficulty ----
+function setDifficulty(level) {
+  aiDifficulty = level; // "easy", "medium", "hard"
   restartGame();
 }
